@@ -11,8 +11,7 @@ class UserController extends Controller
 
     public function loginAction(Request $request)
     {
-        echo "Action Login";
-        die();
+        return $this->render('AppBundle:User:login.html.twig');
     }
 
 }
