@@ -1,0 +1,41 @@
+BackendBundle\Entity\Following:
+    type: entity
+    table: following
+    indexes:
+        fk_following_users:
+            columns:
+                - user_follows
+        fk_followed:
+            columns:
+                - user_followed
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        userFollows:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_follows:
+                    referencedColumnName: id
+            orphanRemoval: false
+        userFollowed:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_followed:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
