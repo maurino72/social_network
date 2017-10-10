@@ -1,0 +1,15 @@
+{% extends 'AppBundle:layouts:main_layout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-info box-form">
+            <div class="panel-heading">
+                <h4 class="panel-title">Register</h4>
+            </div>
+            <div class="panel-body">
+                {{ form_start(form, {'action':'', 'method':'POST', 'class':'form-horizontal'}) }}
+                {{ form_errors(form) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
