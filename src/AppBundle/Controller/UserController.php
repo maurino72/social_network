@@ -7,9 +7,16 @@ use BackendBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
 {
+    private $session;
+
+    public function __construct()
+    {
+        $this->session = new Session();
+    }
 
     public function loginAction(Request $request)
     {
@@ -46,15 +53,18 @@ class UserController extends Controller
                     $em->flush();
 
                     // TODO enviar notificacion via email
-                    $this->addFlash('notice', 'Registration complete!');
+                    $status = "Registration Complete";
+
+                    $this->session->getFlashBag()->add('status', $status);
 
                     return $this->redirect('login');
                 } else {
-                    $registrationStatus = "The user allready exists!";
+                    $status = "The user allready exists!";
                 }
             } else {
-                $registrationStatus = "There was an error in the registration, please try again later!!";
+                $status = "There was an error in the registration, please try again later!!";
             }
+            $this->session->getFlashBag()->add('status', $status);
         }
 
         return $this->render('AppBundle:User:register.html.twig', [
