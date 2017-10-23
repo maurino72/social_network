@@ -23,3 +23,46 @@ body {
     height: 100%;
     text-align: center;
 }
+
+/* - - - - - - -  LISTA DE USUARIOS - - - - - - - - - */
+
+.container .box-users {
+    background-color: #FFFFFF;
+    border: 1px solid #ccc;
+}
+
+.box-users .user-avatar .avatar {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    float: left;
+    margin-right: 8px;
+    margin-top: -7px;
+}
+
+.who-to-follow {
+    margin-left: 15px;
+}
+.count {
+    margin-left: 15px;
+}
+
+.user-avatar .avatar {
+    background-color: #eee;
+    height: 75px;
+    width: 75px;
+    overflow:hidden;
+    float: left;
+    border-radius: 100%;
+}
+
+.user-avatar .avatar img {
+    height: 100%;
+    text-align: center;
+}
+
+.user-detail .user-fullname {
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 8px;
+}

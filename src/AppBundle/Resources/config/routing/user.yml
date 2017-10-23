@@ -19,4 +19,8 @@ user_nickname:
 
 profile-settings:
     path: /profile-settings
-    defaults: { _controller: AppBundle:User:editUser}
+    defaults: { _controller: AppBundle:User:editUser }
+
+user_list:
+    path: /people
+    defaults: { _controller: 'AppBundle:User:users' }

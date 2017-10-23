@@ -1,0 +1,42 @@
+{% extends 'AppBundle:layouts:main_layout.html.twig' %}
+{% block title %}
+    Social Network - People
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row box-users">
+            <h2 class="who-to-follow">Who to follow</h2>
+            <div class="count">
+                <span class="label label-primary">
+                    Total of Users: {{ users.getTotalItemCount }}
+                </span>
+            </div>
+            <hr>
+            <div class="box-content">
+                {% for user in users %}
+                    <div class="user-avatar col-lg-12">
+                        <div class="avatar">
+                            {% if user.image == null %}
+                                <img src="{{ asset('assets/images/default.png') }}" class="img-circle img-responsive">
+                            {% else %}
+                                <img src="{{ asset('uploads/users/'~user.image) }}" alt="{{ user.firstName }} {{ user.lastName }}" class="img-responsive img-circle">
+                            {% endif %}
+                        </div>
+
+                        <div class="user-detail">
+                            <p class="user-fullname">{{ user.firstname }} {{ user.lastname }}</p>
+                            <p class="user-nickname">@{{ user.nickname }}</p>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="navigation">
+            {{ knp_pagination_render(users) }}
+        </div>
+    </div>
+{% endblock %}

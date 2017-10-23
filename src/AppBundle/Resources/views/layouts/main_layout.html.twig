@@ -59,13 +59,17 @@
                                 </a>
                             </li>
                         </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('app_homepage') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                        <li><a href="{{ path('user_list') }}"><span class="glyphicon glyphicon-users"></span> People</a></li>
+                    </ul>
                     {% else %}
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                     <div class="avatar">
                                         {% if app.user.image == null %}
-                                            <img src="{{ asset('uploads/users/default.png') }}" class="img-circle img-responsive">
+                                            <img src="{{ asset('assets/images/default.png') }}" class="img-circle img-responsive">
                                         {% else %}
                                             <img src="{{ asset('uploads/users/'~app.user.image) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}" class="img-responsive img-circle">
                                         {% endif %}

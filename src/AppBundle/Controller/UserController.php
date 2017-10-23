@@ -73,10 +73,10 @@ class UserController extends Controller
                 } else {
                     $status = "The user allready exists!";
                 }
-            } else {
-                $status = "There was an error in the registration, please try again later!!";
+                $this->session->getFlashBag()->add('status', $status);
             }
-            $this->session->getFlashBag()->add('status', $status);
+
+
         }
 
         return $this->render('AppBundle:User:register.html.twig', [
@@ -151,6 +151,19 @@ class UserController extends Controller
         }
         return $this->render('AppBundle:User:profile_settings.html.twig', [
             'form' => $userForm->createView(),
+        ]);
+    }
+
+    public function usersAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('BackendBundle:User')->findAll();
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 5);
+
+        return $this->render('AppBundle:User:people.html.twig', [
+            'users' => $pagination
         ]);
     }
 }
