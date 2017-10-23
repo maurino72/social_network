@@ -9,3 +9,17 @@ body {
 .login-box {
     margin: auto;
 }
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    float: left;
+    margin-right: 8px;
+    margin-top: -7px;
+}
+
+.avatar img{
+    height: 100%;
+    text-align: center;
+}
