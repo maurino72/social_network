@@ -16,3 +16,7 @@ user_nickname:
     path: /nickname-check
     defaults: { _controller: AppBundle:User:nicknameCheck }
     methods: [POST]
+
+profile-settings:
+    path: /profile-settings
+    defaults: { _controller: AppBundle:User:editUser}

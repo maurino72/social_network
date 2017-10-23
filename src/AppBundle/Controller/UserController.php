@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\RegisterType;
+use AppBundle\Form\UserType;
 use BackendBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -100,4 +101,56 @@ class UserController extends Controller
         return new Response($result);
     }
 
+    public function editUserAction(Request $request)
+    {
+        $user = $this->getUser();
+        $oldProfileImage = $user->getImage();
+        $userForm = $this->createForm(UserType::class, $user);
+
+        $userForm->handleRequest($request);
+        if ($userForm->isSubmitted()) {
+            if ($userForm->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nickname = :nickname')
+                    ->setParameter('email', $userForm->get('email')->getData())
+                    ->setParameter('nickname', $userForm->get('nickname')->getData());
+
+                $userExists = $query->getResult();
+
+                if ($user->getEmail() == $userExists[0]->getEmail() && $user->getNickname() == $userExists[0]->getNickname() || count($userExists) == 0) {
+
+                    // Upload file
+                    $imageFile = $userForm->get('image')->getData();
+                    if (!empty($imageFile) && $imageFile != null) {
+                        $extension = $imageFile->guessExtension();
+                        if ($extension == 'jpg' || $extension == 'png' || $extension == 'gif' || $extension == 'jpeg') {
+                            $filename = $user->getId() . time() . "." . $extension;
+                            $imageFile->move("uploads/users", $filename);
+
+                            $user->setImage($filename);
+                        }
+                    } else {
+                        $user->setImage($oldProfileImage);
+                    }
+
+//                    $user->setPassword($passwordEncoder);
+                    $user->setBiografy($userForm->get('biografy')->getData());
+
+                    $em->persist($user);
+                    $em->flush();
+
+                    $status = "Profile Updated";
+                } else {
+                    $status = "The user allready exists!";
+                }
+            } else {
+                $status = "There was an error, please try again later!!";
+            }
+            $this->session->getFlashBag()->add('status', $status);
+            return $this->redirect('profile-settings');
+        }
+        return $this->render('AppBundle:User:profile_settings.html.twig', [
+            'form' => $userForm->createView(),
+        ]);
+    }
 }
