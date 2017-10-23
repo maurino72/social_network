@@ -161,7 +161,7 @@ class UserController extends Controller
         $users = $em->getRepository('BackendBundle:User')->findAll();
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 5);
+        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 2);
 
         return $this->render('AppBundle:User:people.html.twig', [
             'users' => $pagination
