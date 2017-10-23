@@ -21,11 +21,23 @@ class UserController extends Controller
 
     public function loginAction(Request $request)
     {
-        return $this->render('AppBundle:User:login.html.twig');
+        if (is_object($this->getUser())) {
+            return $this->redirect('home');
+        }
+        $authenticationUtils = $this->get('security.authentication_utils');
+        $authenticationError = $authenticationUtils->getLastAuthenticationError();
+        $lastUserName = $authenticationUtils->getLastUserName();
+        return $this->render('AppBundle:User:login.html.twig', [
+            'username' => $lastUserName,
+            'error' => $authenticationError
+        ]);
     }
 
     public function registerAction(Request $request)
     {
+        if (is_object($this->getUser())) {
+            return $this->redirect('home');
+        }
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
 

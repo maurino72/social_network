@@ -5,3 +5,7 @@ body {
 .box-form input{
     margin-bottom: 10px;
 }
+
+.login-box {
+    margin: auto;
+}
