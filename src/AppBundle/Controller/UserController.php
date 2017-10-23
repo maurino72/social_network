@@ -7,6 +7,7 @@ use BackendBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserController extends Controller
@@ -32,13 +33,11 @@ class UserController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-//                $user = $em->getRepository('BackendBundle:User');
                 $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nickname = :nickname')
                     ->setParameter('email', $form->get('email')->getData())
                     ->setParameter('nickname', $form->get('nickname')->getData());
 
                 $userExists = $query->getResult();
-//                $userNickOrEmail = $em->getRepository('BackendBundle:UserRepository')->findByEmailOrNickname($form->get('email')->getData(), $form->get('nickname')->getData());
                 if (count($userExists) == 0) {
                     $factory = $this->get("security.encoder_factory");
                     $encoder = $factory->getEncoder($user);
@@ -70,6 +69,23 @@ class UserController extends Controller
         return $this->render('AppBundle:User:register.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function nicknameCheckAction(Request $request)
+    {
+        $nickname = $request->get('nickname');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('BackendBundle:User')->findOneBy(['nickname' => $nickname]);
+
+        $result = "Used";
+        if (count($user) >= 1 && is_object($user)) {
+            $result = "Used";
+        } else {
+            $result = 'Unused';
+        }
+
+        return new Response($result);
     }
 
 }

@@ -5,3 +5,8 @@ login:
 register:
     path: /register
     defaults: { _controller: AppBundle:User:register }
+
+user_nickname:
+    path: /nickname-check
+    defaults: { _controller: AppBundle:User:nicknameCheck }
+    methods: [POST]
