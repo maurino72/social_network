@@ -111,13 +111,14 @@ class UserController extends Controller
         if ($userForm->isSubmitted()) {
             if ($userForm->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+                //TODO migrar a un repositorio
                 $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nickname = :nickname')
                     ->setParameter('email', $userForm->get('email')->getData())
                     ->setParameter('nickname', $userForm->get('nickname')->getData());
 
                 $userExists = $query->getResult();
 
-                if ($user->getEmail() == $userExists[0]->getEmail() && $user->getNickname() == $userExists[0]->getNickname() || count($userExists) == 0) {
+                if (count($userExists) == 0 || $user->getEmail() == $userExists[0]->getEmail() && $user->getNickname() == $userExists[0]->getNickname()) {
 
                     // Upload file
                     $imageFile = $userForm->get('image')->getData();
@@ -161,6 +162,27 @@ class UserController extends Controller
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 5);
+
+        return $this->render('AppBundle:User:people.html.twig', [
+            'users' => $pagination
+        ]);
+    }
+
+    public function searchAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $search = $request->get('search', null);
+        if ($search == null) {
+            return $this->redirect($this->generateUrl('home_publications'));
+        }
+
+        $dql = "SELECT u FROM BackendBundle:User u 
+                WHERE u.firstname LIKE :search OR 
+                u.lastname LIKE :search OR u.nickname LIKE :search";
+        $query = $em->createQuery($dql)->setParameter('search', "%$search%");
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
 
         return $this->render('AppBundle:User:people.html.twig', [
             'users' => $pagination

@@ -46,24 +46,34 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a href="{{ path('login') }}">
-                                    <span class="glyphicon glyphicon-log-in"></span>
+                                    <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                                     &nbsp;
                                     Login
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ path('register') }}">
-                                    <span class="glyphicon glyphicon-user"></span>
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     &nbsp;
                                     Signup
                                 </a>
                             </li>
                         </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ path('app_homepage') }}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                        <li><a href="{{ path('user_list') }}"><span class="glyphicon glyphicon-users"></span> People</a></li>
-                    </ul>
                     {% else %}
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ path('app_homepage') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp; Home</a></li>
+                            <li><a href="{{ path('user_list') }}"><span class="glyphicon glyphicon-users" aria-hidden="true"></span>&nbsp; People</a></li>
+                            <li>
+                                <form class="navbar-form" action="{{ path('user_search') }}">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search..." name="search">
+                                    </div>
+                                    <button type="submit" class="btn btn-default active">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -79,27 +89,30 @@
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="">
-                                                <span class="glyphicon glyphicon-user"></span>
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                                &nbsp;
                                                 Profile
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{ path('profile-settings') }}">
-                                                <span class="glyphicon glyphicon-cog"></span>
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                &nbsp;
                                                 Account Settings
                                             </a>
                                         </li>
                                         <li role="separator" class="divider"></li>
                                         <li>
                                             <a href="{{ path('logout') }}">
-                                                <span class="glyphicon glyphicon-log-out"></span>
+                                                <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                                &nbsp;
                                                 Logout
                                             </a>
                                         </li>
                                         <li role="separator" class="divider"></li>
                                         <li>
                                             <a href="">
-                                                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                                 Help
                                             </a>
                                         </li>

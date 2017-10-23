@@ -10,4 +10,4 @@ BackendBundle\Entity\User:
             - NotBlank: {message: "The email can not be empty"}
             - Email:
                 message: The email {{ value }} is not valid
-                checkMX: true
+                checkMX: false
