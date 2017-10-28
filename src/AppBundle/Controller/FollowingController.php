@@ -28,8 +28,28 @@ class FollowingController extends Controller
 
     public function followAction(Request $request)
     {
-        echo 'Follow Action';
-        die;
+        $user = $this->getUser();
+        $followerId = $request->get('followed');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $userFollowed = $em->getRepository('BackendBundle:User')->find($followerId);
+
+        $following = new Following();
+        $following->setUserFollows($user);
+        $following->setUserFollowed($userFollowed);
+
+        $em->persist($following);
+
+        $flush = $em->flush();
+
+        if ($flush == null) {
+            $status = 'User Follows';
+        } else {
+            $status = 'An error occurs, please try again later';
+        }
+
+        return new Response($status);
     }
 
 }

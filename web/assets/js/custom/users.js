@@ -18,3 +18,24 @@ ias.extension(new IASSpinnerExtension({
 ias.extension(new IASNoneLeftExtension({
     text: 'No hay mas personas'
 }));
+
+ias.on('ready', function(event){
+    followButtons();
+});
+
+ias.on('rendered', function(event) {
+    followButtons();
+});
+
+function followButtons() {
+    $('#btn-follow').unbind('click').click(function () {
+        $.ajax({
+            url: URL+'/follow',
+            type: 'POST',
+            data: {followed: $(this).attr('data-followed')},
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    });
+}
