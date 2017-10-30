@@ -23,16 +23,20 @@
                             {% endif %}
                         </div>
 
-                        <div class="user-detail">
+                        <div class="user-detail pull-left">
                             <p class="user-fullname">{{ user.firstname }} {{ user.lastname }}</p>
                             <p class="user-nickname">@{{ user.nickname }}</p>
                         </div>
 
                         {% if app.user.id != user.id %}
-                            <div class="pull-right">
-                                <button class="btn btn-sm btn-primary" id="btn-follow" data-followed="{{ user.id }}">Follow</button>
-                                <button class="btn btn-sm btn-default" id="btn-unfollow" data-followed="{{ user.id }}">Unfollow</button>
-                            </div>
+                        <div class="pull-right">
+                            <a class="btn btn-sm btn-primary js-btn-follow{% if app.user|following(user) == true %} hidden{% endif %}" id="btn_follow" data-followed="{{ user.id }}">
+                                Follow
+                            </a>
+                            <button class="btn btn-sm btn-default js-btn-unfollow{% if app.user|following(user) == false %} hidden{% endif %}" id="btn_unfollow" data-followed="{{ user.id }}">
+                                Unfollow
+                            </button>
+                        </div>
                         {% endif %}
 
                         <div class="clearfix"></div>

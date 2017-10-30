@@ -4,6 +4,14 @@ parameters:
     #parameter_name: value
 
 services:
+
+    following.twig_extension:
+        class: AppBundle\Twig\FollowingExtension
+        public: false
+        tags:
+            - { name: twig.extension }
+
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services

@@ -161,7 +161,7 @@ class UserController extends Controller
         $users = $em->getRepository('BackendBundle:User')->findAll();
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 2);
+        $pagination = $paginator->paginate($users, $request->query->getInt('page', 1), 15);
 
         return $this->render('AppBundle:User:people.html.twig', [
             'users' => $pagination
@@ -182,7 +182,7 @@ class UserController extends Controller
         $query = $em->createQuery($dql)->setParameter('search', "%$search%");
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 5);
+        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 15);
 
         return $this->render('AppBundle:User:people.html.twig', [
             'users' => $pagination
