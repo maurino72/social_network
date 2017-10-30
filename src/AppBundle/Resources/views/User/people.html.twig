@@ -30,7 +30,8 @@
 
                         {% if app.user.id != user.id %}
                             <div class="pull-right">
-                                <button class="btn btn-sm btn-primary" id="btn-follow" data-followed="{{ user.id }}"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Follow</button>
+                                <button class="btn btn-sm btn-primary" id="btn-follow" data-followed="{{ user.id }}">Follow</button>
+                                <button class="btn btn-sm btn-default" id="btn-unfollow" data-followed="{{ user.id }}">Unfollow</button>
                             </div>
                         {% endif %}
 

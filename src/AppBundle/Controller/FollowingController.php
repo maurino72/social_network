@@ -52,4 +52,28 @@ class FollowingController extends Controller
         return new Response($status);
     }
 
+    public function unfollowAction(Request $request)
+    {
+        $user = $this->getUser();
+        $followerId = $request->get('followed');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $followedUser = $em->getRepository('BackendBundle:Following')->findOneBy([
+            'userFollows' => $user,
+            'userFollowed' => $followerId
+        ]);
+
+        $em->remove($followedUser);
+        $flush = $em->flush();
+
+        if ($flush == null) {
+            $status = 'User Unfollows';
+        } else {
+            $status = 'An error occurs, please try again later';
+        }
+
+        return new Response($status);
+    }
+
 }
