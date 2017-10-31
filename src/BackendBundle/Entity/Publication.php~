@@ -197,4 +197,3 @@ class Publication
         return $this->user;
     }
 }
-

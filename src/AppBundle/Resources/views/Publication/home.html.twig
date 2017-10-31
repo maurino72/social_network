@@ -7,8 +7,16 @@
         <div class="col-lg-7 box-default" id="timeline">
             <h1 class="box-header">Timeline</h1>
             <div class="box-content">
-                Publicaciones
+
+                {% for publication in publications %}
+                    {{ publication.content }}
+                    <hr>
+                {% endfor %}
+                <div class="navigation">
+                    {{ knp_pagination_render(publications) }}
+                </div>
             </div>
+
         </div>
         <div class="col-lg-4 box-default" id="user_card">
             <div class="avatar">

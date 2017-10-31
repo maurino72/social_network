@@ -46,12 +46,13 @@ class UserController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nickname = :nickname')
-                    ->setParameter('email', $form->get('email')->getData())
-                    ->setParameter('nickname', $form->get('nickname')->getData());
+//                $query = $em->createQuery('SELECT u FROM BackendBundle:User u WHERE u.email = :email OR u.nickname = :nickname')
+//                    ->setParameter('email', $form->get('email')->getData())
+//                    ->setParameter('nickname', $form->get('nickname')->getData());
 
-                $userExists = $query->getResult();
-                if (count($userExists) == 0) {
+//                $userExists = $query->getResult();
+                $checkEmailAndNickname = $em->getRepository('BackendBundle:User')->findByEmailOrNickname($form->get('email')->getData(), $form->get('nickname')->getData());
+                if (count($checkEmailAndNickname) == 0) {
                     $factory = $this->get("security.encoder_factory");
                     $encoder = $factory->getEncoder($user);
 

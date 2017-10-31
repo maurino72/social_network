@@ -1,6 +1,7 @@
 BackendBundle\Entity\Publication:
     type: entity
     table: publications
+    repositoryClass: BackendBundle\Repository\PublicationRepository
     indexes:
         fk_publications_users:
             columns:

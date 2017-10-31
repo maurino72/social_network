@@ -1,6 +1,7 @@
 BackendBundle\Entity\PrivateMessage:
     type: entity
     table: private_messages
+    repositoryClass: BackendBundle\Repository\PrivateMessageRepository
     indexes:
         fk_emitter_privates:
             columns:

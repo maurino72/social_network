@@ -80,9 +80,34 @@ class PublicationController extends Controller
              $this->redirectToRoute('home_publication');
         }
 
+        $publications = $this->getPublications($request);
+
         return $this->render('AppBundle:Publication:home.html.twig', [
             'form' => $form->createView(),
+            'publications' => $publications
         ]);
+    }
+
+    public function getPublications(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $following = $em->getRepository('BackendBundle:Following')->findBy([
+            'userFollows' => $user
+        ]);
+
+        $allUsersFollowing = [];
+
+        foreach ($following as $follow) {
+            $allUsersFollowing[] = $follow->getUserFollowed();
+        }
+
+        $publications = $em->getRepository('BackendBundle:Publication')->findAllPublicationsFromUsersFollowed($user->getId(), $allUsersFollowing);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($publications, $request->query->getInt('page', 1), 5);
+
+        return $pagination;
     }
 
 }

@@ -1,6 +1,7 @@
 BackendBundle\Entity\Notification:
     type: entity
     table: notifications
+    repositoryClass: BackendBundle\Repository\NotificationRepository
     indexes:
         fk_notifications_users:
             columns:

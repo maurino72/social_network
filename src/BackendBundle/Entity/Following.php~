@@ -81,4 +81,3 @@ class Following
         return $this->userFollowed;
     }
 }
-

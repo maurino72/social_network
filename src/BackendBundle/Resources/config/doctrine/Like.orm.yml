@@ -1,6 +1,7 @@
 BackendBundle\Entity\Like:
     type: entity
     table: likes
+    repositoryClass: BackendBundle\Repository\LikeRepository
     indexes:
         fk_likes_users:
             columns:

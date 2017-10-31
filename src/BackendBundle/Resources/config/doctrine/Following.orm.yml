@@ -1,6 +1,7 @@
 BackendBundle\Entity\Following:
     type: entity
     table: following
+    repositoryClass: BackendBundle\Repository\FollowingRepository
     indexes:
         fk_following_users:
             columns:
