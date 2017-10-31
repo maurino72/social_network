@@ -124,3 +124,11 @@ body {
     padding-top: 0px;
     font-weight:400;
 }
+
+.container #new_publication {
+    padding-bottom:10px;
+}
+
+.container #new_publication input, textarea {
+    margin-bottom:10px;
+}
