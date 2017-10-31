@@ -3,5 +3,35 @@
     Social Network - Home
 {% endblock %}
 {% block content %}
-    <h1>Home</h1>
+    <div class="container">
+        <div class="col-lg-7 box-default" id="timeline">
+            <h1 class="box-header">Timeline</h1>
+            <div class="box-content">
+                Publicaciones
+            </div>
+        </div>
+        <div class="col-lg-4 box-default" id="user_card">
+            <div class="avatar">
+                {% if app.user.image == null %}
+                    <img src="{{ asset('assets/images/default.png') }}" class="img-circle img-responsive">
+                {% else %}
+                    <img src="{{ asset('uploads/users/'~app.user.image) }}" alt="{{ app.user.firstName }} {{ app.user.lastName }}" class="img-responsive img-circle">
+                {% endif %}
+            </div>
+            <div class="name-lastname">
+                <a href="#">{{ app.user.firstName }} {{ app.user.lastName }}</a>
+                <div class="clearfix"></div>
+                <span class="nickname">
+                    @{{ app.user.nickname }}
+                </span>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-lg-4 box-default" id="new_publication">
+            <h1 class="box-header">New Publication</h1>
+
+            FORMULARIO
+        </div>
+    </div>
 {% endblock %}
