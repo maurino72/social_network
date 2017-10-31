@@ -9,8 +9,30 @@
             <div class="box-content">
 
                 {% for publication in publications %}
-                    {{ publication.content }}
-                    <hr>
+                    <div class="col-lg-12 publication-item">
+                        <div class="avatar">
+                            {% if publication.user.image == null %}
+                                <img src="{{ asset('assets/images/default.png') }}" class="img-circle img-responsive">
+                            {% else %}
+                                <img src="{{ asset('uploads/users/'~publication.user.image) }}" alt="{{ publication.user.firstName }} {{ publication.user.lastName }}" class="img-responsive img-circle">
+                            {% endif %}
+                        </div>
+                        <div class="publication-item-content">
+                            <p>
+                                <a class="publication-name-link" href="#">
+                                    {{ publication.user.firstName }} {{ publication.user.lastName }}
+                                </a>
+                                -
+                                {{ publication.user.nickname }}
+
+                            </p>
+
+                            {{ publication.content }}
+                            <span class="publication-date pull-right">{{ publication.createdAt|date('d-m-Y H:i:s') }}</span>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                    </div>
                 {% endfor %}
                 <div class="navigation">
                     {{ knp_pagination_render(publications) }}

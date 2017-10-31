@@ -30,7 +30,7 @@ body {
     margin:auto;
 }
 
-/* - - - - - - -  LISTA DE USUARIOS - - - - - - - - - */
+/* - - - - - - -  LISTA OF USERS AND TIMELINE PUBLICATIONS  - - - - - - - - - */
 
 .container .box-users {
     background-color: #FFFFFF;
@@ -53,7 +53,8 @@ body {
     margin-left: 15px;
 }
 
-.user-item .avatar {
+.user-item .avatar,
+.publication-item .avatar {
     background-color: #eee;
     height: 75px;
     width: 75px;
@@ -62,7 +63,8 @@ body {
     border-radius: 100%;
 }
 
-.user-item .avatar img {
+.user-item .avatar img,
+.publication-item .avatar img{
     height: 100%;
     text-align: center;
 }
@@ -73,7 +75,24 @@ body {
     padding-left: 8px;
 }
 
-/* - - - - - - -  PUBLICACIONES - - - - - - - - - */
+.publication-item .publication-item-content {
+    /*padding:10px;*/
+    margin-left: 85px;
+}
+
+.publication-item .publication-item-content .publication-name-link {
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
+}
+
+.publication-item .publication-item-content .publication-date {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* - - - - - - -  PUBLICACATIONS - - - - - - - - - */
+
 .container #timeline {
     margin-right:20px;
     min-height: 750px;
