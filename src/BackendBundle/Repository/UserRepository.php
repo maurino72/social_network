@@ -21,4 +21,16 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findUserWithSeeker($search)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('u')
+            ->from('BackendBundle:User', 'u')
+            ->where('u.firstname LIKE :search')
+            ->orWhere('u.nickname LIKE :search');
+        $qb->setParameter('search', $search);
+
+        return $qb->getQuery()->getResult();
+    }
 }

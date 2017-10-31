@@ -172,18 +172,20 @@ class UserController extends Controller
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $search = $request->get('search', null);
+        $search = trim($request->get('search', null));
         if ($search == null) {
             return $this->redirect($this->generateUrl('home_publications'));
         }
 
-        $dql = "SELECT u FROM BackendBundle:User u 
-                WHERE u.firstname LIKE :search OR 
-                u.lastname LIKE :search OR u.nickname LIKE :search";
-        $query = $em->createQuery($dql)->setParameter('search', "%$search%");
+//        $dql = "SELECT u FROM BackendBundle:User u
+//                WHERE u.firstname LIKE :search OR
+//                u.lastname LIKE :search OR u.nickname LIKE :search";
+//        $query = $em->createQuery($dql)->setParameter('search', "%$search%");
+
+        $searchUser = $em->getRepository('BackendBundle:User')->findUserWithSeeker($search);
 
         $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $request->query->getInt('page', 1), 15);
+        $pagination = $paginator->paginate($searchUser, $request->query->getInt('page', 1), 15);
 
         return $this->render('AppBundle:User:people.html.twig', [
             'users' => $pagination
