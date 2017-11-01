@@ -24,11 +24,26 @@
                                 </a>
                                 -
                                 {{ publication.user.nickname }}
-
+                                <span class="publication-date pull-right">{{ publication.createdAt|long_time }}</span>
                             </p>
 
-                            {{ publication.content }}
-                            <span class="publication-date pull-right">{{ publication.createdAt|long_time }}</span>
+                            <p>{{ publication.content }}</p>
+
+
+                            {% if publication.document is defined and publication.document != null %}
+                                <a href="{{ asset('uploads/publications/documents/'~publication.document) }}"
+                                   class="btn btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank">
+                                </a>
+                            {% endif %}
+
+                            {% if publication.image is defined and publication.image != null %}
+                                <span class="btn-img glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                <div class="clearfix"></div>
+                                <div class="publication-image">
+                                    <img src="{{ asset('uploads/publications/images/'~publication.image) }}" alt="">
+                                </div>
+                                
+                            {% endif %}
                         </div>
                         <div class="clearfix"></div>
                         <hr>
