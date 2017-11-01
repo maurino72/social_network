@@ -23,7 +23,16 @@ class PublicationRepository extends \Doctrine\ORM\EntityRepository
         $qb->setParameter('following', $following);
 
         return $qb->getQuery()->getResult();
+    }
 
-
+    public function findUserPublications($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('p')
+            ->from('BackendBundle:Publication', 'p')
+            ->where('p.user = :user_id')
+            ->setParameter('user_id', $userId)
+            ->orderBy('p.id', 'DESC');
+        return $qb->getQuery()->getResult();
     }
 }

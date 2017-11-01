@@ -24,7 +24,11 @@
                         </div>
 
                         <div class="user-detail pull-left">
-                            <p class="user-fullname">{{ user.firstname }} {{ user.lastname }}</p>
+                            <p class="user-fullname">
+                                <a href="{{ path('user_profile', {'nickname': user.nickname}) }}">
+                                    {{ user.firstname }} {{ user.lastname }}
+                                </a>
+                            </p>
                             <p class="user-nickname">@{{ user.nickname }}</p>
                         </div>
 

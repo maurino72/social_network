@@ -1,0 +1,141 @@
+{% extends 'AppBundle:layouts:main_layout.html.twig' %}
+{% block title %}
+    Social Network - Profile
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/custom/profile.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="col-md-12 box-default profile-box">
+
+            <div class="avatar">
+                {% if user.image == null %}
+                    <img src="{{ asset('assets/images/default.png') }}">
+                {% else %}
+                    <img src="{{ asset('uploads/users/'~user.image) }}" alt="{{ user.firstName }} {{ user.lastName }}">
+                {% endif %}
+            </div>
+            <div class="user-info">
+                <h3>
+                    <a href="{{ path('user_profile', {'nickname': user.nickname}) }}">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </a>
+                </h3>
+                <div class="clearfix"></div>
+                <span class="nickname">{{ user.nickname }}</span>
+            </div>
+
+            <div class="biografy">
+                {{ user.biografy }}
+            </div>
+            <div class="clearfix"></div>
+            <div id="user-stats">
+                {% set user_stats = user|user_stats %}
+                <div class="user-data">
+                    <a href="#">
+                    <span class="label-stat">
+                        Following
+                    </span>
+                        <span class="number-stat">
+                        {{ user_stats.following }}
+                    </span>
+                    </a>
+                </div>
+                <div class="user-data">
+                    <a href="#">
+                    <span class="label-stat">
+                        Followers
+                    </span>
+                        <span class="number-stat">
+                        {{ user_stats.followers }}
+                    </span>
+                    </a>
+                </div>
+                <div class="user-data">
+                    <a href="#">
+                    <span class="label-stat">
+                        Publications
+                    </span>
+                        <span class="number-stat">
+                        {{ user_stats.publications }}
+                    </span>
+                    </a>
+                </div>
+                <div class="user-data">
+                    <a href="#">
+                    <span class="label-stat">
+                        Likes
+                    </span>
+                        <span class="number-stat">
+                        {{ user_stats.likes }}
+                    </span>
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div id="user-publications">
+                {% for publication in pagination %}
+                    <div class="col-lg-12 publication-item">
+                        <div class="avatar">
+                            {% if publication.user.image == null %}
+                                <img src="{{ asset('assets/images/default.png') }}" class="img-circle img-responsive">
+                            {% else %}
+                                <img src="{{ asset('uploads/users/'~publication.user.image) }}" alt="{{ publication.user.firstName }} {{ publication.user.lastName }}" class="img-responsive img-circle">
+                            {% endif %}
+                        </div>
+                        <div class="publication-item-content">
+                            <p>
+                                <a class="publication-name-link" href="{{ path('user_profile', {'nickname': user.nickname}) }}">
+                                    {{ publication.user.firstName }} {{ publication.user.lastName }}
+                                </a>
+                                -
+                                {{ publication.user.nickname }}
+                                <span class="publication-date pull-right">{{ publication.createdAt|long_time }}</span>
+                            </p>
+
+                            <p>{{ publication.content }}</p>
+
+                            <div class="pull-right like">
+                                    <span data-id="{{ publication.id }}"
+                                          class="{% if app.user|liked(publication) == true %}hidden {% endif %}btn btn-like glyphicon glyphicon-heart-empty"
+                                          aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Like"></span>
+                                <span data-id="{{ publication.id }}"
+                                      class="{% if app.user|liked(publication) == false %}hidden {% endif %}btn-unlike glyphicon glyphicon-heart-empty active"
+                                      aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Unlike"></span>
+                            </div>
+
+                            {% if app.user.id is defined and publication.user.id == app.user.id %}
+                                <span class="btn-remove glyphicon glyphicon-trash" aria-hidden="true" data-id="{{ publication.id }}"></span>
+                            {% endif %}
+
+                            {% if publication.document is defined and publication.document != null %}
+                                <a href="{{ asset('uploads/publications/documents/'~publication.document) }}"
+                                   class="btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank">
+                                </a>
+                            {% endif %}
+
+                            {% if publication.image is defined and publication.image != null %}
+                                <span class="btn-img glyphicon glyphicon-picture" aria-hidden="true"></span>
+                                <div class="clearfix"></div>
+                                <div class="publication-image">
+                                    <img src="{{ asset('uploads/publications/images/'~publication.image) }}" alt="">
+                                </div>
+
+                            {% endif %}
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                    </div>
+                {% endfor %}
+
+                <div class="clearfix"></div>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

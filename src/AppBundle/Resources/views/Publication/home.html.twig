@@ -19,7 +19,7 @@
                         </div>
                         <div class="publication-item-content">
                             <p>
-                                <a class="publication-name-link" href="#">
+                                <a class="publication-name-link" href="{{ path('user_profile', {'nickname': publication.user.nickname}) }}">
                                     {{ publication.user.firstName }} {{ publication.user.lastName }}
                                 </a>
                                 -
@@ -76,7 +76,7 @@
                 {% endif %}
             </div>
             <div class="name-lastname">
-                <a href="#">{{ app.user.firstName }} {{ app.user.lastName }}</a>
+                <a href="{{ path('user_profile', {'nickname': app.user.nickname}) }}">{{ app.user.firstName }} {{ app.user.lastName }}</a>
                 <div class="clearfix"></div>
                 <span class="nickname">
                     @{{ app.user.nickname }}

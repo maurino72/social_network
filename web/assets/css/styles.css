@@ -2,6 +2,10 @@ body {
     background-color: #EEEEEE;
 }
 
+a:hover {
+    text-decoration: none;
+}
+
 .box-form input{
     margin-bottom: 10px;
 }
@@ -10,7 +14,7 @@ body {
     margin: auto;
 }
 
-.avatar {
+.navbar-inverse .navbar-right .avatar {
     width: 32px;
     height: 32px;
     overflow: hidden;
@@ -19,7 +23,7 @@ body {
     margin-top: -7px;
 }
 
-.avatar img{
+.navbar-inverse .navbar-right .avatar img{
     height: 100%;
     text-align: center;
 }
@@ -27,7 +31,7 @@ body {
 .box-default {
     background-color: #FFFFFF;
     border: 1px solid #ccc;
-    margin:auto;
+    margin: auto;
 }
 
 /* - - - - - - -  LISTA OF USERS AND TIMELINE PUBLICATIONS  - - - - - - - - - */
@@ -69,9 +73,14 @@ body {
     text-align: center;
 }
 
-.user-detail .user-fullname {
+.user-detail .user-fullname a{
     font-weight: bold;
     font-size: 20px;
+    padding-left: 8px;
+    color: #000;
+}
+
+.user-detail .user-nickname {
     padding-left: 8px;
 }
 
@@ -91,7 +100,7 @@ body {
     opacity: 0.7;
 }
 
-/* - - - - - - -  PUBLICACATIONS - - - - - - - - - */
+/* - - - - - - -  HOME - - - - - - - - - */
 
 .container #timeline {
     margin-right:20px;
@@ -150,6 +159,10 @@ body {
 
 .container #new_publication input, textarea {
     margin-bottom:10px;
+}
+
+.publication-item {
+    padding: 10px;
 }
 
 .publication-image {
@@ -221,4 +234,70 @@ body {
     display: block;
     font-size: 15px;
     font-weight:bold;
+}
+
+/* - - - - - - -  PROFILE - - - - - - - - - */
+.profile-box {
+    padding: 20px;
+    margin: 0 auto;
+    float: none;
+    justify-content: center;
+}
+
+.container .profile-box > .avatar {
+    background-color: #eee;
+    -webkit-border-radius:550px;
+    -moz-border-radius:550px;
+    border-radius:550px;
+    width:180px;
+    height:180px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.profile-box > .avatar > img {
+    height:100%;
+    text-align: center;
+}
+
+.profile-box .user-info {
+    margin: auto;
+    text-align: center;
+}
+
+.profile-box .biografy {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.profile-box #user-stats {
+    margin:0 auto;
+    margin-bottom:20px;
+    padding-top: 20px;
+    padding-bottom:20px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    width: 46%;
+    text-align: center;
+}
+
+.profile-box #user-stats .user-data{
+    float: left;
+}
+
+.profile-box #user-stats a{
+    color: #444;
+}
+
+.profile-box #user-stats .number-stat{
+    font-weight: bold;
+}
+
+.profile-box #user-stats .label-stat{
+    display: block;
+    font-size:18px;
+    margin-right: 20px;
+    margin-left:20px;
+    text-align: center;
 }
