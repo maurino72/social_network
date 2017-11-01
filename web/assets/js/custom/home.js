@@ -32,5 +32,16 @@ $(document).ready(function() {
         $('.btn-img').unbind('click').click(function(){
             $(this).parent().find('.publication-image').fadeToggle();
         });
+
+        $('.btn-remove').unbind('click').click(function(){
+            $(this).parent().parent().addClass('hidden');
+            $.ajax({
+                url: URL+'/publication/delete/' + $(this).attr('data-id'),
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
     }
 });

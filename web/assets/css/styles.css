@@ -173,3 +173,7 @@ body {
     cursor: pointer;
     color: #337ab7 !important;
 }
+
+.publication-item .btn-remove {
+    color: #ff0000 !important;
+}

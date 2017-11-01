@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use BackendBundle\Entity\Publication;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\PublicationType;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -108,6 +109,32 @@ class PublicationController extends Controller
         $pagination = $paginator->paginate($publications, $request->query->getInt('page', 1), 5);
 
         return $pagination;
+    }
+
+    public function removePublicationAction(Request $request, $id = null)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $publication = $em->getRepository('BackendBundle:Publication')->find($id);
+        if ($user->getId() == $publication->getUser()->getId()) {
+            $em->remove($publication);
+
+            $flush = $em->flush();
+            if ($flush == null) {
+                $status = 'The publication was remove succesfully';
+            } else {
+                $status = 'We can not remove the publication';
+            }
+        } else {
+            $status = 'You are not the owner of the publication';
+        }
+
+
+
+
+        return new Response($status);
+
     }
 
 }
