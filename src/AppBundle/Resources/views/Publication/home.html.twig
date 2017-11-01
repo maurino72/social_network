@@ -29,13 +29,20 @@
 
                             <p>{{ publication.content }}</p>
 
+                            <div class="pull-right like">
+                                <span data-id="{{ publication.id }}" class="btn btn-like glyphicon glyphicon-heart-empty"
+                                      aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Like"></span>
+                                <span data-id="{{ publication.id }}" class="btn-unlike glyphicon glyphicon-heart-empty active hidden"
+                                      aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Unlike"></span>
+                            </div>
+
                             {% if app.user.id is defined and publication.user.id == app.user.id %}
                                 <span class="btn-remove glyphicon glyphicon-trash" aria-hidden="true" data-id="{{ publication.id }}"></span>
                             {% endif %}
 
                             {% if publication.document is defined and publication.document != null %}
                                 <a href="{{ asset('uploads/publications/documents/'~publication.document) }}"
-                                   class="btn btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank">
+                                   class="btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank">
                                 </a>
                             {% endif %}
 
@@ -47,7 +54,6 @@
                                 </div>
                                 
                             {% endif %}
-
                         </div>
                         <div class="clearfix"></div>
                         <hr>

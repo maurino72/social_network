@@ -169,11 +169,28 @@ body {
 }
 
 .publication-item .glyphicon {
-    margin-right: 7px;
+    padding: 10px;
     cursor: pointer;
     color: #337ab7 !important;
 }
 
 .publication-item .btn-remove {
     color: #ff0000 !important;
+}
+
+.like {
+    margin-top:-45px;
+}
+
+.like .btn-like {
+    font-size: 20px;
+}
+
+.like .btn-like:hover {
+    color: #FF0000 !important;
+    cursor: pointer;
+}
+
+.like .active {
+    color: #FF0000 !important;
 }

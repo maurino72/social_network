@@ -29,6 +29,8 @@ $(document).ready(function() {
     });
 
     function buttons() {
+        $('[data-toggle="tooltip"]').tooltip();
+
         $('.btn-img').unbind('click').click(function(){
             $(this).parent().find('.publication-image').fadeToggle();
         });
@@ -37,6 +39,18 @@ $(document).ready(function() {
             $(this).parent().parent().addClass('hidden');
             $.ajax({
                 url: URL+'/publication/delete/' + $(this).attr('data-id'),
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+        $('.btn-like').unbind('click').click(function() {
+            $(this).addClass('hidden');
+            $(this).parent().find('.btn-unlike').removeClass('hidden');
+            $.ajax({
+                url: URL+'/like/'+$(this).attr('data-id'),
                 type: 'GET',
                 success: function(response) {
                     console.log(response);
