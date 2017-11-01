@@ -38,4 +38,26 @@ class LikeController extends Controller
         return new Response($status);
     }
 
+    public function unlikeAction($id = null)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $publicationLiked = $em->getRepository('BackendBundle:Like')->findOneBy([
+            'user' => $user,
+            'publication' => $id,
+        ]);
+
+        $em->remove($publicationLiked);
+        $flush = $em->flush();
+
+        if ($flush == null) {
+            $status = 'Publication unlike';
+        } else {
+            $status = 'There was an error on trying to unlike the publication';
+        }
+
+        return new Response($status);
+    }
+
 }
