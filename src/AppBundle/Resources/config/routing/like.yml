@@ -5,3 +5,7 @@ like_publication:
 unlike_publication:
     path: /unlike/{id}
     defaults: { _controller: AppBundle:Like:unlike, id: null }
+
+user_publications_like:
+    path: /publications-like/{nickname}
+    defaults: { _controller: AppBundle:Like:publicationLikes, nickname: null }

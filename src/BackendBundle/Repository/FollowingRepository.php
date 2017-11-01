@@ -22,4 +22,17 @@ class FollowingRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findUsersFollowed($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('f')
+            ->from('BackendBundle:Following', 'f')
+            ->join('BackendBundle:User', 'u')
+            ->where('f.userFollowed = :user_id')
+            ->setParameter('user_id', $userId)
+            ->orderBy('u.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

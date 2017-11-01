@@ -60,4 +60,33 @@ class LikeController extends Controller
         return new Response($status);
     }
 
+
+    public function publicationLikesAction(Request $request, $nickname = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($nickname != null) {
+            $user = $em->getRepository('BackendBundle:User')->findOneBy([
+                'nickname' => $nickname,
+            ]);
+        } else {
+            $user = $this->getUser();
+        }
+
+        if (empty($user) || !is_object($user)) {
+            return $this->redirect($this->generateUrl('home_publications'));
+        }
+
+        $userId = $user->getId();
+
+        $publicationLikes = $em->getRepository('BackendBundle:Like')->findPublicationLikesByUser($userId);
+
+        $paginator = $this->get('knp_paginator');
+        $likes = $paginator->paginate($publicationLikes, $request->query->getInt('page', 1), 5);
+
+        return $this->render('AppBundle:Like:likes.html.twig', [
+            'user' => $user,
+            'pagination' => $likes
+        ]);
+    }
 }

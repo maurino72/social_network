@@ -105,4 +105,34 @@ class FollowingController extends Controller
             'pagination' => $pagination
         ]);
     }
+
+    public function followedAction(Request $request, $nickname = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($nickname != null) {
+            $user = $em->getRepository('BackendBundle:User')->findOneBy([
+                'nickname' => $nickname,
+            ]);
+        } else {
+            $user = $this->getUser();
+        }
+
+        if (empty($user) || !is_object($user)) {
+            return $this->redirect($this->generateUrl('home_publications'));
+        }
+
+        $userId = $user->getId();
+
+        $usersFollowed = $em->getRepository('BackendBundle:Following')->findUsersFollowed($userId);
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($usersFollowed, $request->query->getInt('page', 1), 5);
+
+        return $this->render('AppBundle:Following:following.html.twig', [
+            'type' => 'followed',
+            'profileUser' => $user,
+            'pagination' => $pagination
+        ]);
+    }
 }

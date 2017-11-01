@@ -44,7 +44,7 @@
                     </a>
                 </div>
                 <div class="user-data">
-                    <a href="#">
+                    <a href="{{ path('followed_users', {'nickname': user.nickname}) }}">
                     <span class="label-stat">
                         Followers
                     </span>
@@ -54,7 +54,7 @@
                     </a>
                 </div>
                 <div class="user-data">
-                    <a href="#">
+                    <a href="{{ path('user_profile', {'nickname': user.nickname}) }}">
                     <span class="label-stat">
                         Publications
                     </span>
