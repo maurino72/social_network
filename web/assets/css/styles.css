@@ -195,3 +195,30 @@ body {
 .like .active {
     color: #FF0000 !important;
 }
+
+#user_card .user-data {
+    width: 25%;
+    float: left;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#user_card .user-data a {
+    color: #444;
+}
+#user_card .user-data a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+#user_card .user-data .label-stat {
+    display: block;
+}
+
+#user_card .user-data .number-stat {
+    display: block;
+    font-size: 15px;
+    font-weight:bold;
+}
