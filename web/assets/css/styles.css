@@ -182,7 +182,8 @@ body {
     margin-top:-45px;
 }
 
-.like .btn-like {
+.like .btn-like,
+.like .active {
     font-size: 20px;
 }
 

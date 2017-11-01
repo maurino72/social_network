@@ -11,6 +11,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    liked.twig_extension:
+            class: AppBundle\Twig\LikeExtension
+            public: false
+            tags:
+                - { name: twig.extension }
+
     long_time.twig_extension:
         class: AppBundle\Twig\LongTimeExtension
         public: false

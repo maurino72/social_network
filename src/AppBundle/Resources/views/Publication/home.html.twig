@@ -30,9 +30,11 @@
                             <p>{{ publication.content }}</p>
 
                             <div class="pull-right like">
-                                <span data-id="{{ publication.id }}" class="btn btn-like glyphicon glyphicon-heart-empty"
+                                <span data-id="{{ publication.id }}"
+                                      class="{% if app.user|liked(publication) == true %}hidden {% endif %}btn btn-like glyphicon glyphicon-heart-empty"
                                       aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Like"></span>
-                                <span data-id="{{ publication.id }}" class="btn-unlike glyphicon glyphicon-heart-empty active hidden"
+                                <span data-id="{{ publication.id }}"
+                                      class="{% if app.user|liked(publication) == false %}hidden {% endif %}btn-unlike glyphicon glyphicon-heart-empty active"
                                       aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Unlike"></span>
                             </div>
 
