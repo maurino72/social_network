@@ -86,7 +86,7 @@
             <div class="clearfix"></div>
             {% set user_stats = app.user|user_stats %}
             <div class="user-data">
-                <a href="#">
+                <a href="{{ path('following_users', {'nickname': app.user.nickname}) }}">
                     <span class="label-stat">
                         Following
                     </span>

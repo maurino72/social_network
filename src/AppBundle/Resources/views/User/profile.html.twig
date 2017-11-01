@@ -24,7 +24,7 @@
                     </a>
                 </h3>
                 <div class="clearfix"></div>
-                <span class="nickname">{{ user.nickname }}</span>
+                <span class="nickname">@{{ user.nickname }}</span>
             </div>
 
             <div class="biografy">
@@ -34,7 +34,7 @@
             <div id="user-stats">
                 {% set user_stats = user|user_stats %}
                 <div class="user-data">
-                    <a href="#">
+                    <a href="{{ path('following_users', {'nickname': user.nickname}) }}">
                     <span class="label-stat">
                         Following
                     </span>

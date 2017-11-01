@@ -10,4 +10,16 @@ namespace BackendBundle\Repository;
  */
 class FollowingRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findUsersFollowing($userId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('f')
+            ->from('BackendBundle:Following', 'f')
+            ->join('BackendBundle:User', 'u')
+            ->where('f.userFollows = :user_id')
+            ->setParameter('user_id', $userId)
+            ->orderBy('u.id', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

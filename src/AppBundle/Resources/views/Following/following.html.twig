@@ -5,15 +5,24 @@
 {% block content %}
     <div class="container">
         <div class="row box-users">
-            <h2 class="box-header">Who to follow</h2>
+            {% if type == 'following' %}
+                <h2 class="box-header">People who are following: {{ profileUser.nickname }}</h2>
+            {% else %}
+                <h2 class="box-header">Followers of: {{ profileUser.nickname }}</h2>
+            {% endif %}
             <div class="count">
                 <span class="label label-primary">
-                    Total of Users: {{ users.getTotalItemCount }}
+                    Total of Users: {{ pagination.getTotalItemCount }}
                 </span>
             </div>
             <hr>
             <div class="box-content">
-                {% for user in users %}
+                {% for follow in pagination %}
+                    {% if type == 'following' %}
+                        {% set user = follow.userFollowed %}
+                    {% else %}
+                        {% set user = follow.userFollows %}
+                    {% endif %}
                     <div class="user-item col-lg-12">
                         <div class="avatar">
                             {% if user.image == null %}
@@ -33,14 +42,14 @@
                         </div>
 
                         {% if app.user.id != user.id %}
-                        <div class="pull-right">
-                            <a class="btn btn-sm btn-primary js-btn-follow{% if app.user|following(user) == true %} hidden{% endif %}" id="btn_follow" data-followed="{{ user.id }}">
-                                Follow
-                            </a>
-                            <button class="btn btn-sm btn-default js-btn-unfollow{% if app.user|following(user) == false %} hidden{% endif %}" id="btn_unfollow" data-followed="{{ user.id }}">
-                                Unfollow
-                            </button>
-                        </div>
+                            <div class="pull-right">
+                                <a class="btn btn-sm btn-primary js-btn-follow{% if app.user|following(user) == true %} hidden{% endif %}" id="btn_follow" data-followed="{{ user.id }}">
+                                    Follow
+                                </a>
+                                <button class="btn btn-sm btn-default js-btn-unfollow{% if app.user|following(user) == false %} hidden{% endif %}" id="btn_unfollow" data-followed="{{ user.id }}">
+                                    Unfollow
+                                </button>
+                            </div>
                         {% endif %}
 
                         <div class="clearfix"></div>
@@ -51,7 +60,7 @@
         </div>
 
         <div class="navigation">
-            {{ knp_pagination_render(users) }}
+            {{ knp_pagination_render(pagination) }}
         </div>
     </div>
 {% endblock %}
